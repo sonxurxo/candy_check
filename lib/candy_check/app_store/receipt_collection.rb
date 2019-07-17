@@ -12,6 +12,8 @@ module CandyCheck
       def initialize(attributes, product_ids = nil)
         @receipts = attributes.map {|r| Receipt.new(r) }.select {|receipt|
           product_ids.nil? || product_ids.include?(receipt.product_id)
+        }.sort{ |a, b|
+          a.purchase_date - b.purchase_date
         }
       end
 
